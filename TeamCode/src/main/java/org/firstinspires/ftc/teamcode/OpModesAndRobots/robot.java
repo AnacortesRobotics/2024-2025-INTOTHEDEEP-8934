@@ -9,9 +9,8 @@ import com.qualcomm.robotcore.util.ThreadPool;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
-
-
 import java.util.concurrent.ExecutorService;
+
 public class robot {
     DigitalChannel limitSwitch1;
     Servo testServo1;
@@ -26,6 +25,7 @@ public class robot {
     IMU imu;
     View relativeLayout;
     float gain = 10;
+
     public enum COLOR {
         RED,
         BLUE,
@@ -33,6 +33,7 @@ public class robot {
         TILE
     }
     COLOR CURRENT_COLOR;
+
     double Kp = 1;
     double Ki = 0.1;
     double Kd = 0.01;
@@ -45,13 +46,18 @@ public class robot {
     public robot(LinearOpMode linearOpMode, HardwareMap hardwareMap)
     {
         this.linearOpMode = linearOpMode;
-
-        frontLeft = hardwareMap.get(DcMotor.class, "frontLeft");
-        frontRight = hardwareMap.get(DcMotor.class, "frontRight");
+/*
+        frontLeft = hardwareMap.get(DcMotor.class, "perp");
+        frontRight = hardwareMap.get(DcMotor.class, "par0");
         backLeft = hardwareMap.get(DcMotor.class, "backLeft");
-        backRight = hardwareMap.get(DcMotor.class, "backRight");
-        imu = hardwareMap.get(IMU.class, "imu");
+        backRight = hardwareMap.get(DcMotor.class, "par1");
+*/
+        frontLeft = hardwareMap.get(DcMotorEx.class, "frontLeft");
+        backLeft = hardwareMap.get(DcMotorEx.class, "backLeft");
+        backRight = hardwareMap.get(DcMotorEx.class, "backRight");
+        frontRight = hardwareMap.get(DcMotorEx.class, "frontRight");
 
+        imu = hardwareMap.get(IMU.class, "imu");
         //testServo1 = hardwareMap.get(Servo.class, "testServo1");
         colorSensor = hardwareMap.get(NormalizedColorSensor.class, "colorSensor");
 
@@ -81,8 +87,6 @@ public class robot {
         };
     }
 
-    //robotHeading = robot.imu.getRobotOrientation(AxesReference.INTRINSIC, AxesOrder.XYZ, AngleUnit.DEGREES).thirdAngle;
-
     public void colorChanger()
     {
         if(colors.blue <= 0.1)
@@ -103,6 +107,7 @@ public class robot {
         }
 
     }
+
 
 
 
@@ -131,8 +136,8 @@ public class robot {
 
         // does math for mecanum chassis
         frontLeft.setPower((forwards + sideways + rotate) / denominator);
-        backLeft.setPower((forwards - sideways + rotate) / denominator);
-        frontRight.setPower((forwards - sideways - rotate) / denominator);
+        backLeft.setPower((forwards - sideways - rotate) / denominator);
+        frontRight.setPower((forwards - sideways + rotate) / denominator);
         backRight.setPower((forwards + sideways - rotate) / denominator);
     }
 

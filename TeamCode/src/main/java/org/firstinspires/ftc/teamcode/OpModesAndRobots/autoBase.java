@@ -189,6 +189,7 @@ public class autoBase extends LinearOpMode {
                 )
         );
 
+
         if (robot.CURRENT_COLOR == COLOR.BLUE) {
             telemetry.clearAll();
             telemetry.addLine("BLUE DETECTED :)");
@@ -200,7 +201,6 @@ public class autoBase extends LinearOpMode {
             telemetry.addLine("NO BLUE DETECTION... Uh Oh");
             telemetry.update();
         }
-
 
 
         /*

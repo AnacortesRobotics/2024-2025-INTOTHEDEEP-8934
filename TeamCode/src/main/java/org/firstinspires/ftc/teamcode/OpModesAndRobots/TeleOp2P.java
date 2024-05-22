@@ -2,16 +2,16 @@ package org.firstinspires.ftc.teamcode.OpModesAndRobots;
 
 import com.arcrobotics.ftclib.drivebase.MecanumDrive;
 import com.arcrobotics.ftclib.gamepad.*;
-import com.arcrobotics.ftclib.hardware.RevIMU;
 import com.arcrobotics.ftclib.hardware.motors.Motor;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.*;
 import org.firstinspires.ftc.robotcore.external.navigation.*;
-import org.firstinspires.ftc.teamcode.RR.TankDrive;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="TeleOp", group="TeleOp")
-public class TeleOp extends OpMode
+
+@TeleOp(name="TeleOp2P", group="TeleOp")
+public class TeleOp2P extends OpMode
 {
     private robot robot;
     private MecanumDrive fDrive;
@@ -58,26 +58,24 @@ public class TeleOp extends OpMode
         );
 
         robot.imu.initialize(aIMUparams);
-        //robot.imu.resetYaw();
+        robot.imu.resetYaw();
+        telemetry.clearAll();
+        telemetry.addLine("IMU RESET");
         // Create an object to receive the IMU angles
         YawPitchRollAngles robotOrientation;
         robotOrientation = robot.imu.getRobotYawPitchRollAngles();
-
 
         double Yaw   = robotOrientation.getYaw(AngleUnit.DEGREES);
         double Pitch = robotOrientation.getPitch(AngleUnit.DEGREES);
         double Poll  = robotOrientation.getRoll(AngleUnit.DEGREES);
 
-        // Tell the driver that initialization is complete.
-        telemetry.addData("Status", "Initialized");
-
         if (robot.colorSensor instanceof SwitchableLight) {
             ((SwitchableLight)robot.colorSensor).enableLight(true);
         }
 
-
-        colors = robot.colorSensor.getNormalizedColors();
-
+        // Tell the driver that initialization is complete.
+        telemetry.addData("Status", "Initialized");
+        telemetry.update();
     }
 
     /*
@@ -106,13 +104,12 @@ public class TeleOp extends OpMode
             telemetry.addData("Distance (cm)", "%.3f", ((DistanceSensor) robot.colorSensor).getDistance(DistanceUnit.CM));
         }
         telemetry.addLine()
-                .addData("Red", "%.3f", colors.red)
-                .addData("Green", "%.3f", colors.green)
-                .addData("Blue", "%.3f", colors.blue);
-
+                .addData("Red", "%.3f", robot.colors.red)
+                .addData("Green", "%.3f", robot.colors.green)
+                .addData("Blue", "%.3f", robot.colors.blue);
+        telemetry.addData("color of floor", robot.CURRENT_COLOR);
         telemetry.addData("Degrees Rotation:", robot.imu.getRobotOrientation(AxesReference.INTRINSIC, AxesOrder.XYZ, AngleUnit.DEGREES).thirdAngle);
-
-
+        telemetry.update();
         // receive gamepad input
         aReader.readValue();
         ltReader.readValue();
@@ -191,7 +188,7 @@ public class TeleOp extends OpMode
                 robot.frontLeft.setDirection(DcMotorSimple.Direction.FORWARD);
                 robot.backLeft.setDirection(DcMotorSimple.Direction.FORWARD);
                 fDriveMode = true;
-                gamepad1.rumbleBlips(3);
+                gamepad1.rumbleBlips(5);
                 telemetry.addLine("drive mode: fDrive");
             }
         }
@@ -210,7 +207,6 @@ public class TeleOp extends OpMode
                 robot.imu.resetYaw();
             }
         }
-
 
     }
     @Override
