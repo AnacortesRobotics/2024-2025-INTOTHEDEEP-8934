@@ -1,31 +1,20 @@
-package org.firstinspires.ftc.teamcode.OpModesAndRobots;
+package org.firstinspires.ftc.teamcode.OpModesAndSubsystems;
 
 import android.annotation.SuppressLint;
-import androidx.annotation.NonNull;
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.Vector2d;
-import com.acmerobotics.roadrunner.Trajectory;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.Range;
-import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.Vision.visionManager;
 import org.firstinspires.ftc.teamcode.RR.MecanumDrive;
 import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
-import org.firstinspires.ftc.teamcode.Vision.visionManager;
-import org.firstinspires.ftc.teamcode.OpModesAndRobots.robot;
-import org.firstinspires.ftc.teamcode.OpModesAndRobots.robot.COLOR;
+import org.firstinspires.ftc.teamcode.OpModesAndSubsystems.robot.COLOR;
 import static org.firstinspires.ftc.teamcode.Constants.FieldConstants8934.*;
-import com.acmerobotics.dashboard.config.Config;
-import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
-import com.acmerobotics.roadrunner.Action;
-import com.acmerobotics.roadrunner.Pose2d;
+
 import com.acmerobotics.roadrunner.SequentialAction;
-import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
 
 // this is a generic auto mode for CenterStage Backstage.
@@ -63,24 +52,28 @@ public class autoBase extends LinearOpMode {
     private visionManager visionManager;
     private boolean arrivedAtAprilTag = false;
     double lastKnownRangeToAprilTag = 0;
+
+    // TODO: These fields might make more sense in your constants classes
     private static Vector2d addTest = new Vector2d(4,1);
-    public Pose2d STACK3_POSITION = new Pose2d(pixelStack3.plus(addTest), Math.toRadians(180));
-    public Vector2d STACK1_POSITION_VECTOR2D = (pixelStack1.plus(addTest));
+    //public Pose2d STACK3_POSITION = new Pose2d(pixelStack3.plus(addTest), Math.toRadians(180));
+    //public Vector2d STACK1_POSITION_VECTOR2D = (pixelStack1.plus(addTest));
     private static Vector2d boardAddCenter = new Vector2d(-5.5,0);
     private static Vector2d boardAddLeft = new Vector2d(-6,6.5);
     private static Vector2d blueBoardScoringLeft = new Vector2d(54.5,43.5);
     private static Vector2d blueBoardScoringMiddle = new Vector2d(54.5,41);
     private static Vector2d blueBoardScoringRight = new Vector2d(55,30.75);
-    private static Pose2d blueBoardScoring = new Pose2d(blueBoard.plus(boardAddCenter), Math.toRadians(180));
+    //private static Pose2d blueBoardScoring = new Pose2d(blueBoard.plus(boardAddCenter), Math.toRadians(180));
     private static Pose2d centerField = new Pose2d(0, 0, Math.toRadians(0));
     private static Vector2d centerFieldVector = new Vector2d(0,6);
     private static Pose2d centerFieldOffset = new Pose2d(-36,-2,Math.toRadians(180));
     private static Pose2d centerFieldOffset2 = new Pose2d(-4,-2,Math.toRadians(180));
 
 
+    // TODO: Don't suppress the indentation warnings lol (CTRL-ALT-L will auto-format)
     @SuppressLint("SuspiciousIndentation")
     @Override
     public void runOpMode() {
+        //TODO: Is this if-statement necessary? (Seems like this initialization should always occur)
         if (opModeInInit()) {
             initializeGameConfig();
             initializeSystem();
@@ -113,7 +106,6 @@ public class autoBase extends LinearOpMode {
             }
 
         }
-
 
 
 
@@ -260,6 +252,12 @@ public class autoBase extends LinearOpMode {
                     lastKnownRangeToAprilTag = rangeError;
                 }
 
+                // TODO: Consider moving this movement code into it's own function in robot
+                //       (Function accepts target distances and angles, uses a loop, finds
+                //        approximate errors using encoders/imu values and uses the
+                //        proportional speed control below).
+                //       Even fancier (perhaps overkill), the function could accept an object
+                //       with getError functions, reducing drift in the loop.
                 // Use the speed and turn "gains" to calculate how we want the robot to move.
                 drive = Range.clip(rangeError * SPEED_GAIN, -MAX_AUTO_SPEED, MAX_AUTO_SPEED);
                 turn = Range.clip(headingError * TURN_GAIN, -MAX_AUTO_TURN, MAX_AUTO_TURN);

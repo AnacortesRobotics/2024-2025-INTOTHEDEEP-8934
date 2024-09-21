@@ -2,32 +2,29 @@ package org.firstinspires.ftc.teamcode.Constants;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.Vector2d;
 
-//TODO: REDO THIS FOR NEXT SEASON'S FIELD
 
 /*
     Constants that describe the robot's environment and the current field
 
- Substation Red    +Y
- *    Front Blue *  |  * Backstage Blue
- * Stack            |
-                    |                * Blue
- * Stack            |                * Board
+ Blue Side         +Y
+ *Obs Blue          |                *Blue Baskets
                     |
- * Stack            |
+  *   *   *  _______|______  *   *   *Preplaced Yellow Samples
+             |      |     |
+             |      |     |
+             |      |     |
 -X -------------- (0,0) -------------- +X
- * Stack            |
+             |      |     |
+             |      |     |
+             |      |     |
+  *   *   *  _______|______  *   *   *Preplaced Red Samples
                     |
- * Stack            |                * Red
-                    |                * Board
- * Stack            |
- *     Front Red *  |  * Backstage Red
- Substation Blue   -Y
+ *Red Baskets       |                *Obs Red
+ Red Side          -Y
 
 
 
  */
-
-//TODO: SETUP CONSTANTS FOR NEXT SEASON'S FIELD
 
 public class FieldConstants8934 {
     //units of the field
@@ -40,24 +37,21 @@ public class FieldConstants8934 {
     private static final double tapeThickness = 2.0;
     private static final double hubRadius = 18.0/2;
 
+    //TODO: VALDIFY CONSTANTS FOR THIS SEASON (TENTATIVE CURRENTLY)
 
-    //Pixel stacks (numbered from +Y to -Y in ascending order)
-    public static final Vector2d pixelStack1 = new Vector2d(-70.5,35.75);
-    public static final Vector2d pixelStack2 = new Vector2d(-70.5,23.75);
-    public static final Vector2d pixelStack3 = new Vector2d(-70.5,11.75);
-    public static final Vector2d pixelStack4 = new Vector2d(-70.5,-11.75);
-    public static final Vector2d pixelStack5 = new Vector2d(-70.5,-23.75);
-    public static final Vector2d pixelStack6 = new Vector2d(-70.5,-35.75);
-
-    //Boards center of front of lip touching ground
-    public static final Vector2d blueBoard = new Vector2d(59.75,35.5);
-    public static final Vector2d redBoard = new Vector2d(59.75,-35.5);
-
-    //Center of tape line in substation
-    public static final Vector2d redSubstation = new Vector2d(-59,58);
-    public static final Vector2d blueSubstation = new Vector2d(-59,-58);
+    //Basket Locations
+    private static final Pose2d blueBasket = new Pose2d(57.5,57.5,Math.toRadians(48));
+    private static final Pose2d redBasket = new Pose2d(-57.5,-57.5,Math.toRadians(228));
+    //Center of obs zone ish
+    public static final Pose2d blueObsZone = new Pose2d(-57.5,57.5, Math.toRadians(90));
+    public static final Pose2d redObsZone = new Pose2d(57.5,-57.5, Math.toRadians(270));
 
     //Robot starting locations
+    public static final Pose2d basketBlueStarting = new Pose2d(6,60.5,Math.toRadians(270));
+    public static final Pose2d basketRedStarting = new Pose2d(-6,-60.5,Math.toRadians(270));
+    public static final Pose2d autoClipBlue = new Pose2d(6,32,Math.toRadians(270));
+    public static final Pose2d autoClipRed = new Pose2d(-6,-32,Math.toRadians(90));
+
     public static final Pose2d backstageBlueStarting = new Pose2d(12,60.5,Math.toRadians(270));
     public static final Pose2d frontstageBlueStarting = new Pose2d(-36,60.5,Math.toRadians(270));
     public static final Pose2d backstageRedStarting = new Pose2d(12,-60.5,Math.toRadians(90));

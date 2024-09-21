@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.OpModesAndRobots;
+package org.firstinspires.ftc.teamcode.OpModesAndSubsystems;
 
 import com.arcrobotics.ftclib.drivebase.MecanumDrive;
 import com.arcrobotics.ftclib.gamepad.*;
@@ -123,6 +123,7 @@ public class TeleOp2P extends OpMode
         dpadUpReader.readValue();
         dpad_leftReader.readValue();
 
+        // TODO: Lots of empty/unused code here, consider cleaning up
         if (aReader.isDown()) {
 
         } else if (aReader.wasJustReleased()) {

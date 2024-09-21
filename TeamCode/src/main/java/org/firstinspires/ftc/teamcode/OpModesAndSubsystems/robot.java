@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.OpModesAndRobots;
+package org.firstinspires.ftc.teamcode.OpModesAndSubsystems;
 
 import android.view.View;
 import com.ThermalEquilibrium.homeostasis.Controllers.Feedback.BasicPID;
@@ -6,14 +6,11 @@ import com.ThermalEquilibrium.homeostasis.Parameters.PIDCoefficients;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.*;
 import com.qualcomm.robotcore.util.ThreadPool;
-import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
-import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
-import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
+
 import java.util.concurrent.ExecutorService;
 
 public class robot {
     DigitalChannel limitSwitch1;
-    Servo testServo1;
     DcMotor frontLeft, frontRight, backLeft, backRight;
     private ExecutorService threadExecuter;
     private LinearOpMode linearOpMode;
@@ -46,33 +43,23 @@ public class robot {
     public robot(LinearOpMode linearOpMode, HardwareMap hardwareMap)
     {
         this.linearOpMode = linearOpMode;
-/*
-        frontLeft = hardwareMap.get(DcMotor.class, "perp");
-        frontRight = hardwareMap.get(DcMotor.class, "par0");
-        backLeft = hardwareMap.get(DcMotor.class, "backLeft");
-        backRight = hardwareMap.get(DcMotor.class, "par1");
-*/
+        //drive motors
         frontLeft = hardwareMap.get(DcMotorEx.class, "frontLeft");
         backLeft = hardwareMap.get(DcMotorEx.class, "backLeft");
         backRight = hardwareMap.get(DcMotorEx.class, "backRight");
         frontRight = hardwareMap.get(DcMotorEx.class, "frontRight");
 
         imu = hardwareMap.get(IMU.class, "imu");
-        //testServo1 = hardwareMap.get(Servo.class, "testServo1");
+
         colorSensor = hardwareMap.get(NormalizedColorSensor.class, "colorSensor");
-
-
         colorSensor.setGain(gain);
         colors = colorSensor.getNormalizedColors();
-
-
-        // odometry wheels
-
-
 
         //reverses direction of wheels (left)
         frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
         backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+
+
 
 
         threadExecuter = ThreadPool.newSingleThreadExecutor("loadPixel");
@@ -87,6 +74,7 @@ public class robot {
         };
     }
 
+    //TODO: Add yellow for samples and test red and blue for sample (maybe add tape red/blue and sample red/blue)
     public void colorChanger()
     {
         if(colors.blue <= 0.1)
@@ -126,19 +114,32 @@ public class robot {
             //viperSlide.setPower(power);
         }
     }
+
+    // TODO: Empty functions are technically fine, but should be cleaned up if you're not using it
     public void depositPixelsInBucketDragOff() // this is the code that actually loads the bucket
     {
 
     }
 
+    // TODO: FTCLib's MecanumDrive class already implements this (driveRobotCentric())
     public void mecanumX(double forwards,double sideways, double rotate) {
         double denominator = Math.max(Math.abs(forwards) + Math.abs(sideways) + Math.abs(rotate), 1);
 
         // does math for mecanum chassis
+        frontLeft.setPower((forwards - sideways + rotate) / denominator);
+        backLeft.setPower((forwards + sideways + rotate) / denominator);
+        frontRight.setPower((forwards + sideways - rotate) / denominator);
+        backRight.setPower((forwards - sideways - rotate) / denominator);
+
+        // TODO: This commented code is identical :P
+/*
+        // does math for mecanum chassis
         frontLeft.setPower((forwards + sideways + rotate) / denominator);
-        backLeft.setPower((forwards - sideways - rotate) / denominator);
-        frontRight.setPower((forwards - sideways + rotate) / denominator);
+        backLeft.setPower((forwards - sideways + rotate) / denominator);
+        frontRight.setPower((forwards - sideways - rotate) / denominator);
         backRight.setPower((forwards + sideways - rotate) / denominator);
+*/
+
     }
 
 
@@ -147,6 +148,9 @@ public class robot {
     // TODO: This is only used by the AprilTag drive-up code (came with the sample code).
     // TODO: We should only have one way to drive the robot.
     public void moveRobot(double x, double y, double yaw) {
+        // TODO Rather than normalizing, wouldn't it make more sense to limit
+        //      each parameter before calculating wheel powers?
+
         // Calculate wheel powers.
         double leftFrontPower    =  x -y -yaw;
         double rightFrontPower   =  x +y +yaw;
