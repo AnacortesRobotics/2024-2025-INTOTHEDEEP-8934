@@ -35,11 +35,11 @@ public final class ThreeDeadWheelLocalizer implements Localizer {
     private boolean initialized;
 
     public ThreeDeadWheelLocalizer(HardwareMap hardwareMap, double inPerTick) {
-
+        //TODO: Sort out if it is front left or back left for perp encoder
         //MOTORS: front right is par0 (C0), back right is par1 (C3), front left is perp (E0)
         par0 = new OverflowEncoder(new RawEncoder(hardwareMap.get(DcMotorEx.class, "frontRight")));
         par1 = new OverflowEncoder(new RawEncoder(hardwareMap.get(DcMotorEx.class, "backRight")));
-        perp = new OverflowEncoder(new RawEncoder(hardwareMap.get(DcMotorEx.class, "backLeft")));
+        perp = new OverflowEncoder(new RawEncoder(hardwareMap.get(DcMotorEx.class, "frontLeft")));
 
         par0.setDirection(DcMotorSimple.Direction.REVERSE);
 
