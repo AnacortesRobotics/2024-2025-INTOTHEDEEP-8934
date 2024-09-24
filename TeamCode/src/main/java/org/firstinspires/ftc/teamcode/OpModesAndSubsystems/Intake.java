@@ -13,6 +13,7 @@ public class Intake {
     //double intakePosRight = intakeExtensionRight
 
     Servo intakeFlip, grabber, grabberWrist, intakeExtensionleft, intakeExtensionRight;
+
     public Intake(HardwareMap hardwareMap) {
 
         intakeMotor = hardwareMap.get(DcMotorEx.class, "intakeMotor");

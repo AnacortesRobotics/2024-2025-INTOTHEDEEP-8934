@@ -10,9 +10,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.*;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 
-@TeleOp(name="TeleOp2P", group="TeleOp")
-public class TeleOp2P extends OpMode
-{
+@TeleOp(name = "TeleOp2P", group = "TeleOp")
+public class TeleOp2P extends OpMode {
     private robot robot;
     private MecanumDrive fDrive;
     Motor frontLeftX, frontRightX, backLeftX, backRightX;
@@ -21,9 +20,9 @@ public class TeleOp2P extends OpMode
     TriggerReader ltReader, rtReader;
     NormalizedRGBA colors = new NormalizedRGBA();
     private boolean fDriveMode = false;
+
     @Override
-    public void init()
-    {
+    public void init() {
         robot = new robot(null, hardwareMap);
 
         // experimental fDrive
@@ -65,12 +64,12 @@ public class TeleOp2P extends OpMode
         YawPitchRollAngles robotOrientation;
         robotOrientation = robot.imu.getRobotYawPitchRollAngles();
 
-        double Yaw   = robotOrientation.getYaw(AngleUnit.DEGREES);
+        double Yaw = robotOrientation.getYaw(AngleUnit.DEGREES);
         double Pitch = robotOrientation.getPitch(AngleUnit.DEGREES);
-        double Poll  = robotOrientation.getRoll(AngleUnit.DEGREES);
+        double Poll = robotOrientation.getRoll(AngleUnit.DEGREES);
 
         if (robot.colorSensor instanceof SwitchableLight) {
-            ((SwitchableLight)robot.colorSensor).enableLight(true);
+            ((SwitchableLight) robot.colorSensor).enableLight(true);
         }
 
         // Tell the driver that initialization is complete.
@@ -82,20 +81,21 @@ public class TeleOp2P extends OpMode
      * Code to run REPEATEDLY after the driver hits INIT, but before they hit PLAY
      */
     @Override
-    public void init_loop() { }
+    public void init_loop() {
+    }
 
     /*
      * Code to run ONCE when the driver hits PLAY
      */
     @Override
-    public void start() { }
+    public void start() {
+    }
 
     /*
      * Code to run REPEATEDLY after the driver hits PLAY but before they hit STOP
      */
     @Override
-    public void loop()
-    {
+    public void loop() {
 
         // color sensor telemetry
 
@@ -138,14 +138,14 @@ public class TeleOp2P extends OpMode
 
         }
 
-        // drive screw out
+        // lift to high basket
         if (ltReader.isDown()) {
-            //robot.hookArm.setPower(gamePad2.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER));
-        } else if (ltReader.wasJustReleased()) {
-            //robot.hookArm.setPower(0);
+           //robot.lift.GoToHighBasket();
         }
 
-        if(dpad_leftReader.wasJustReleased()) {}
+
+        if (dpad_leftReader.wasJustReleased()) {
+        }
 
         // drive screw in
         if (rtReader.isDown()) {
@@ -154,9 +154,12 @@ public class TeleOp2P extends OpMode
             //robot.hookArm.setPower(0);
         }
 
-        if (lbReader.wasJustReleased()) {} // hanger up
-        if (rbReader.wasJustReleased()) {} // hanger down
-        if (dpad_downReader.wasJustReleased()) {} // reset pixel picker-uppers
+        if (lbReader.wasJustReleased()) {
+        } // hanger up
+        if (rbReader.wasJustReleased()) {
+        } // hanger down
+        if (dpad_downReader.wasJustReleased()) {
+        } // reset pixel picker-uppers
 
         double viperPower = gamepad2.left_stick_y;
         robot.safeViperSlide(viperPower);
@@ -204,13 +207,14 @@ public class TeleOp2P extends OpMode
         }
 
         if (dpad_downReader.wasJustReleased()) {
-            if(fDriveMode){
+            if (fDriveMode) {
                 robot.imu.resetYaw();
             }
         }
-
     }
+
     @Override
-    public void stop() { }
+    public void stop() {
+    }
 
 }

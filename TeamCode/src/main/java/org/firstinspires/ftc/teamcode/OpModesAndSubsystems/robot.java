@@ -3,11 +3,13 @@ package org.firstinspires.ftc.teamcode.OpModesAndSubsystems;
 import android.view.View;
 import com.ThermalEquilibrium.homeostasis.Controllers.Feedback.BasicPID;
 import com.ThermalEquilibrium.homeostasis.Parameters.PIDCoefficients;
+import com.acmerobotics.roadrunner.Action;
+import org.firstinspires.ftc.*;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.*;
 import com.qualcomm.robotcore.util.ThreadPool;
-
 import java.util.concurrent.ExecutorService;
+import org.firstinspires.ftc.teamcode.OpModesAndSubsystems.Lift;
 
 public class robot {
     DigitalChannel limitSwitch1;
@@ -31,17 +33,13 @@ public class robot {
     }
     COLOR CURRENT_COLOR;
 
-    double Kp = 1;
-    double Ki = 0.1;
-    double Kd = 0.01;
-    double robotHeading = 0;
-
-    PIDCoefficients coefficients = new PIDCoefficients(Kp, Ki, Kd);
-    BasicPID controller = new BasicPID(coefficients);
-
     private boolean viperThreadLock = false;
+    //public Lift lift;
+
     public robot(LinearOpMode linearOpMode, HardwareMap hardwareMap)
     {
+        //lift = new Lift(hardwareMap);
+
         this.linearOpMode = linearOpMode;
         //drive motors
         frontLeft = hardwareMap.get(DcMotorEx.class, "frontLeft");
@@ -97,10 +95,6 @@ public class robot {
     }
 
 
-
-
-
-
     // We transfer from intake to deposit in a background thread because it takes a while.
     // It needs to be accurate, but we should be able to move the drivetrain while its happening.
     public void loadPixelsInBucket()
@@ -126,11 +120,10 @@ public class robot {
         double denominator = Math.max(Math.abs(forwards) + Math.abs(sideways) + Math.abs(rotate), 1);
 
         // does math for mecanum chassis
-        frontLeft.setPower((forwards - sideways + rotate) / denominator);
-        backLeft.setPower((forwards + sideways + rotate) / denominator);
-        frontRight.setPower((forwards + sideways - rotate) / denominator);
-        backRight.setPower((forwards - sideways - rotate) / denominator);
-
+        frontLeft.setPower((forwards + sideways + rotate) / denominator);
+        backLeft.setPower((forwards - sideways + rotate) / denominator);
+        frontRight.setPower((forwards - sideways - rotate) / denominator);
+        backRight.setPower((forwards + sideways - rotate) / denominator);
         // TODO: This commented code is identical :P
 /*
         // does math for mecanum chassis

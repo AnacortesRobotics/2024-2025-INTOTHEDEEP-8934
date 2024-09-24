@@ -1,11 +1,11 @@
 package org.firstinspires.ftc.teamcode.OpModesAndSubsystems;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
-@Autonomous(name="Auto1Blue", group="CenterStage")
-public class Auto1Blue extends autoBase {
+@Autonomous(name="BLUEBasketCycle", group="ITD")
+public class BLUEBasketCycle extends autoBase {
     @Override
     public void initializeGameConfig() {
-        STAGE_LOCATION = STAGE_LOCATION.BACK;
+        CURRENT_SIDE = SIDE.BASKET;
         THIS_ALLIANCE = autoBase.ALLIANCE.BLUE;
     }
 }

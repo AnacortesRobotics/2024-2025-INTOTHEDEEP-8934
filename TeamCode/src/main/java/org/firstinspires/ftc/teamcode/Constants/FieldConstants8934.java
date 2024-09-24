@@ -2,6 +2,8 @@ package org.firstinspires.ftc.teamcode.Constants;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.Vector2d;
 
+import java.util.Vector;
+
 
 /*
     Constants that describe the robot's environment and the current field
@@ -40,8 +42,8 @@ public class FieldConstants8934 {
     //TODO: VALDIFY CONSTANTS FOR THIS SEASON (TENTATIVE CURRENTLY)
 
     //Basket Locations
-    private static final Pose2d blueBasket = new Pose2d(57.5,57.5,Math.toRadians(48));
-    private static final Pose2d redBasket = new Pose2d(-57.5,-57.5,Math.toRadians(228));
+    public static final Vector2d blueBasket = new Vector2d(57.5,57.5); //Math.toRadians(48)
+    public static final Pose2d redBasket = new Pose2d(-57.5,-57.5,Math.toRadians(228));
     //Center of obs zone ish
     public static final Pose2d blueObsZone = new Pose2d(-57.5,57.5, Math.toRadians(90));
     public static final Pose2d redObsZone = new Pose2d(57.5,-57.5, Math.toRadians(270));
@@ -49,8 +51,11 @@ public class FieldConstants8934 {
     //Robot starting locations
     public static final Pose2d basketBlueStarting = new Pose2d(6,60.5,Math.toRadians(270));
     public static final Pose2d basketRedStarting = new Pose2d(-6,-60.5,Math.toRadians(270));
-    public static final Pose2d autoClipBlue = new Pose2d(6,32,Math.toRadians(270));
-    public static final Pose2d autoClipRed = new Pose2d(-6,-32,Math.toRadians(90));
+    public static final Vector2d autoClipBlue = new Vector2d(6,32);
+    public static final Vector2d autoClipRed = new Vector2d(-6,-32); //Math.toRadians(90)
+    public static final Vector2d blueYSample1 = new Vector2d(52,41); //Math.toRadians(253)
+    public static final Vector2d blueYSample2 = new Vector2d(55.5,40); //Math.toRadians(285)
+    public static final Vector2d blueYSample3 = new Vector2d(57,38); //Math.toRadians(318)
 
     public static final Pose2d backstageBlueStarting = new Pose2d(12,60.5,Math.toRadians(270));
     public static final Pose2d frontstageBlueStarting = new Pose2d(-36,60.5,Math.toRadians(270));
