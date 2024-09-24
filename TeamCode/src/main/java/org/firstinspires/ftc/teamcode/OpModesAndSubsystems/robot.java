@@ -29,6 +29,7 @@ public class robot {
         RED,
         BLUE,
         WHITE,
+        YELLOW,
         TILE
     }
     COLOR CURRENT_COLOR;
@@ -87,7 +88,12 @@ public class robot {
         {
             CURRENT_COLOR = COLOR.WHITE;
         }
-        if(CURRENT_COLOR != COLOR.RED & CURRENT_COLOR != COLOR.BLUE & CURRENT_COLOR != COLOR.WHITE)
+        //TODO: TUNE THESE VALUES FOR YELLOW SPECIMEN FOR COLOR SENSOR IN INTAKE
+        if(colors.blue <= 0.01 & colors.green >= 0.45)
+        {
+            CURRENT_COLOR = COLOR.YELLOW;
+        }
+        if(CURRENT_COLOR != COLOR.RED & CURRENT_COLOR != COLOR.BLUE & CURRENT_COLOR != COLOR.WHITE & CURRENT_COLOR != COLOR.YELLOW)
         {
             CURRENT_COLOR = COLOR.TILE;
         }

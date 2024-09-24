@@ -25,6 +25,7 @@ public class Lift {
     private DcMotorEx liftLeft, liftRight;
     double posLeft;
     double posRight;
+    Servo grabber, grabberWrist;
 
     public Lift(HardwareMap hardwareMap) {
         liftLeft = hardwareMap.get(DcMotorEx.class, "liftLeft");
@@ -34,6 +35,8 @@ public class Lift {
         //TODO: set one to reverse - figure out which one
         liftLeft.setDirection(DcMotorSimple.Direction.REVERSE);
         liftRight.setDirection(DcMotorSimple.Direction.FORWARD);
+        grabber = hardwareMap.get(Servo.class, "grabber");
+        grabberWrist = hardwareMap.get(Servo.class, "grabberWrist");
     }
 
     private boolean LiftMove(double targetReference, double targetPose) {
