@@ -26,7 +26,7 @@ import org.firstinspires.ftc.teamcode.OpModesAndSubsystems.robot.COLOR;
 public class Intake {
     private robot robot;
     private DcMotorEx intakeMotor;
-    Servo intakeFlip, grabber, grabberWrist, intakeExtensionleft, intakeExtensionRight;
+    Servo intakeFlip, intakeExtensionleft, intakeExtensionRight;
 
 
     //TODO: Make these for the rev encoders on the end of the intake
